@@ -2,7 +2,7 @@
 % Please edit documentation in R/error_beta_classification.R
 \name{error_beta_classification}
 \alias{error_beta_classification}
-\title{Compute Theoretical Bayes Error for a Binary Gaussian Mixture}
+\title{Compute Theoretical Bayes' Error for a Binary Gaussian Mixture}
 \usage{
 error_beta_classification(mu_hat, Sigma_hat, pi_hat)
 }

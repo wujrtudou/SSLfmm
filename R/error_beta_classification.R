@@ -1,4 +1,4 @@
-#' Compute Theoretical Bayes Error for a Binary Gaussian Mixture
+#' Compute Theoretical Bayes' Error for a Binary Gaussian Mixture
 #'
 #' @description
 #' Computes the Bayes classification error rate for a two-component Gaussian

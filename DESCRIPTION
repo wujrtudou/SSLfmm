@@ -1,6 +1,7 @@
-Package: SSLFMM
+Package: SSLfmm
 Type: Package
-Title: Semisupervised Learning under a Mixed Missingness Mechanism in Finite Mixture Models
+Title: Semisupervised Learning under a Mixed-Missingness Mechanism in
+        Finite Mixture Models
 Version: 0.1.0
 Authors@R: c(person("Jinran", "Wu", email = "jinran.wu@uq.edu.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2388-3614")),person("Geoffrey J.", "McLachlan", email = "g.mclachlan@uq.edu.au", role = "aut", comment = c(ORCID = "0000-0002-5921-3145")))
 Maintainer: Jinran Wu <jinran.wu@uq.edu.au>
@@ -22,3 +23,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Depends: R (>= 4.2.0)
 Imports: stats, mvtnorm, matrixStats
+NeedsCompilation: no
+Packaged: 2025-11-19 23:00:42 UTC; uqjwu15
+Author: Jinran Wu [aut, cre] (<https://orcid.org/0000-0002-2388-3614>),
+  Geoffrey J. McLachlan [aut] (<https://orcid.org/0000-0002-5921-3145>)

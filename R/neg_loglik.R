@@ -1,7 +1,7 @@
-#' Negative Log-Likelihood for Semi-supervised FMM with Mixtures of Label-Missingness Mechanisms
+#' Negative Log-Likelihood for Semi-supervised FMM with a Mixed-Missingness Mechanism
 #'
 #' Computes the negative log-likelihood for a semi-supervised Gaussian mixture
-#' model under a hybrid missing-data mechanism (MCAR + entropy-based MAR).
+#' model under a mixed missingness mechanism (MCAR + entropy-based MAR).
 #' Assumes a ** covariance matrix** \eqn{\Sigma} across all mixture
 #' components.
 #'

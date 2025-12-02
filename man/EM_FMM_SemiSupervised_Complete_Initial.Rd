@@ -2,7 +2,7 @@
 % Please edit documentation in R/EM_FMM_SemiSupervised_Complete_Initial.R
 \name{EM_FMM_SemiSupervised_Complete_Initial}
 \alias{EM_FMM_SemiSupervised_Complete_Initial}
-\title{Complete-data warm-up initialization for semi-supervised FMM with mixtures of label missingness mechanisms}
+\title{Complete-data warm-up initialization for semi-supervised FMM with mixed-missingness mechanisms}
 \usage{
 EM_FMM_SemiSupervised_Complete_Initial(
   data,

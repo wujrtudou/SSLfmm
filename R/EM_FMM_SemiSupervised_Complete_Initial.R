@@ -1,4 +1,4 @@
-#' Complete-data warm-up initialization for semi-supervised FMM with mixtures of label missingness mechanisms
+#' Complete-data warm-up initialization for semi-supervised FMM with mixed-missingness mechanisms
 #'
 #' Uses both labeled and unlabeled subsets of the data to obtain quick initial
 #' estimates for mixture parameters and missingness mechanism parameters

@@ -1,8 +1,8 @@
-#' EM for Semi-Supervised FMM with Mixed Missingness (MCAR + entropy-based MAR)
+#' EM for Semi-Supervised FMM with a Mixed-Missingness mechanism (MCAR + entropy-based MAR)
 #'
-#' Runs an EM-like procedure that models a mixed missingness mechanism:
+#' Runs an EM-like procedure that models a mixed-missingness mechanism:
 #' unlabeled indicator \eqn{m_j} follows a mixture of MCAR (prob \eqn{\alpha})
-#' and entropy-driven MAR via a logistic link \eqn{q_j = \text{logit}^{-1}(\xi_0 + \xi_1 \log e_j)}.
+#' and entropy-based MAR via a logistic link \eqn{q_j = \text{logit}^{-1}(\xi_0 + \xi_1 \log e_j)}.
 #' Supports shared (\code{ncov = 1}) or class-specific (\code{ncov = 2}) covariance.
 #'
 #' @param data A data.frame or matrix with \eqn{p+2} columns:

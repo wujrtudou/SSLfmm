@@ -26,6 +26,7 @@
 #'   - probs: vector prob_mar
 #'   - raw: original rmix output `dat` augmented with en and labels
 #'
+#' @export
 simulate_mixed_missingness <- function(
     n = 500,
     pi,
@@ -73,7 +74,7 @@ simulate_mixed_missingness <- function(
   missing_mechanism[setdiff(mar_group, mcar_in_mar)] <- 2L
   
   # --- Assemble data.frame ---
-  x_names <- paste0("x", 1:p)
+  x_names <- paste0("y", 1:p)
   data <- cbind(dat$Y, en = dat$en, missing = missing_mechanism,
                 label = final_label, truth = dat$clust)
   colnames(data) <- c(x_names, "en", "missing", "label", "truth")

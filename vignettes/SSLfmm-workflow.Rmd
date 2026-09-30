@@ -1,0 +1,129 @@
+---
+title: "SSLfmm: A Practical Workflow"
+author: "Geoffrey J. McLachlan and Jinran Wu"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SSLfmm: A Practical Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+# Overview
+
+`SSLfmm` fits semi-supervised Gaussian finite-mixture classifiers when class
+labels are observed for only part of a sample. The package provides a common
+interface for complete-case (`cc`), missing-completely-at-random (`mcar`),
+entropy-dependent missing-at-random (`mar`), and mixed MCAR/MAR analyses.
+This vignette illustrates the main simulation, fitting, prediction, and
+assessment workflow using only the public package API.
+
+# Simulate partially labelled data
+
+```{r simulation}
+library(SSLfmm)
+
+mu <- matrix(c(-1.5, 1.5), nrow = 1, ncol = 2)
+sim <- simulate_mixed_missingness(
+  n = 120,
+  pi = c(0.5, 0.5),
+  mu = mu,
+  sigma = matrix(1, 1, 1),
+  alpha = 0.10,
+  mar_rate = 0.25,
+  seed = 2026
+)
+
+head(sim$data)
+table(sim$data$missing_source, useNA = "ifany")
+```
+
+The simulated data contain the feature columns (`x1`, ..., `xp`), the observed
+label (`label`), the complete reference class (`truth`, available because this
+is a simulation), and information about the missing-label mechanism.
+
+# Fit a mixed missingness model
+
+The unknown-source mixed model estimates the contribution of MCAR and MAR
+without requiring the source of each missing label to be supplied.
+
+```{r fit}
+x <- as.matrix(sim$data["x1"])
+fit <- fit_sslfmm(
+  x,
+  sim$data$label,
+  g = 2,
+  method = "mixed",
+  covariance_type = "equal",
+  indicator = "unknown",
+  n_starts = 3,
+  seed = 2027
+)
+
+fit
+summary(fit)
+```
+
+For applications in which the source of missingness is recorded, use
+`indicator = "known"` together with `missing_source`.
+
+# Prediction and uncertainty
+
+```{r prediction}
+pred_class <- predict(fit, x)
+posterior <- predict(fit, x, type = "posterior")
+entropy <- predict(fit, x, type = "entropy")
+
+head(pred_class)
+head(posterior)
+head(entropy)
+```
+
+Posterior probabilities quantify class uncertainty. Entropy provides a compact
+summary of uncertainty and is also the quantity used by the entropy-dependent
+MAR mechanism implemented in the package.
+
+# Classification assessment
+
+Because the simulation retains the complete class labels, prediction can be
+assessed directly.
+
+```{r assessment}
+perf <- classification_performance(
+  sim$data$truth,
+  pred_class,
+  posterior
+)
+
+perf$metrics
+perf$confusion_matrix
+```
+
+In genuinely partially labelled data, performance on observations whose labels
+are missing cannot usually be evaluated without an external reference set.
+
+# Included Blood Transfusion example data
+
+The package also includes the semi-synthetic `blood_transfusion` data set used
+in the software-paper application.
+
+```{r data}
+data("blood_transfusion")
+head(blood_transfusion)
+table(blood_transfusion$missing_indicator)
+```
+
+The `truth` column is retained for evaluation of the semi-synthetic example,
+whereas `observed` is the partially observed response supplied to model-fitting
+functions.
+
+# Reproducibility and development
+
+The development repository is
+<https://github.com/wujrtudou/SSLfmm> and issues can be reported at
+<https://github.com/wujrtudou/SSLfmm/issues>. The package contains automated
+`testthat` tests for its public API, simulation return contracts, fitting,
+prediction, input validation, and the included case-study data.
